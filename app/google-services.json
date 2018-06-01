@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "972504534857",
+    "firebase_url": "https://animecha-f6b0c.firebaseio.com",
+    "project_id": "animecha-f6b0c",
+    "storage_bucket": "animecha-f6b0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972504534857:android:c1392e211b5537d5",
+        "android_client_info": {
+          "package_name": "com.sectordefectuoso.animecha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972504534857-93lv0avlfbpu1o9cnhmsa0ga71qpksmb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sectordefectuoso.animecha",
+            "certificate_hash": "f6d19ed123d0a2e19e94362b37d398a3b930e58e"
+          }
+        },
+        {
+          "client_id": "972504534857-bqo23p4sne81647jf1vs6n4ap57il9vn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "972504534857-bqo23p4sne81647jf1vs6n4ap57il9vn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJEV-8MOZQdrsv2gGHCsP52vdQXUPDDhs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972504534857-bqo23p4sne81647jf1vs6n4ap57il9vn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
