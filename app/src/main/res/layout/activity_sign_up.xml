@@ -7,7 +7,7 @@
     tools:context="com.sectordefectuoso.animecha.SignUpActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="43dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -27,7 +27,7 @@
         tools:layout_editor_absoluteY="124dp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/sas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -36,7 +36,7 @@
         tools:layout_editor_absoluteY="211dp" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btnIngresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
