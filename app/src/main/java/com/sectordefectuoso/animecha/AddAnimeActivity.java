@@ -1,5 +1,6 @@
 package com.sectordefectuoso.animecha;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,10 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class AddAnimeActivity extends MainActivity {
+public class AddAnimeActivity extends AppCompatActivity {
     EditText txtTitle, txtDescription, txtGenre, txtEpisodes, txtEpisodeDuration, txtStudio, txtPoster, txtYear;
     Button btnAddAnime;
-    ArrayList<Anime> animes = new ArrayList<>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Anime");
 
@@ -73,18 +73,21 @@ public class AddAnimeActivity extends MainActivity {
                 }else if (TextUtils.isEmpty(Year)){
                     Toast.makeText(AddAnimeActivity.this, "Ingresa el Ano de Estreno", Toast.LENGTH_SHORT).show();
                 }else {
-                    String id = ref.push().getKey();
+                    String Id = ref.push().getKey();
                     Anime animes = new Anime();
-                    ref.child(id).child("Title").setValue(Title);
-                    ref.child(id).child("Description").setValue(Description);
-                    ref.child(id).child("Genre").setValue(Genre);
-                    ref.child(id).child("Episodes").setValue(Episodes);
-                    ref.child(id).child("EpisodeDuration").setValue(EpisodeDuration);
-                    ref.child(id).child("Studio").setValue(Studio);
-                    ref.child(id).child("Poster").setValue(Poster);
-                    ref.child(id).child("Year").setValue(Year);
+                    ref.child(Id).child("Title").setValue(Title);
+                    ref.child(Id).child("Description").setValue(Description);
+                    ref.child(Id).child("Genre").setValue(Genre);
+                    ref.child(Id).child("Episodes").setValue(Episodes);
+                    ref.child(Id).child("EpisodeDuration").setValue(EpisodeDuration);
+                    ref.child(Id).child("Studio").setValue(Studio);
+                    ref.child(Id).child("Poster").setValue(Poster);
+                    ref.child(Id).child("Year").setValue(Year);
 
                     Toast.makeText(AddAnimeActivity.this, "Datos Agregados", Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(AddAnimeActivity.this, MainActivity.class);
+                    startActivity(i);
                 }
             }
         });

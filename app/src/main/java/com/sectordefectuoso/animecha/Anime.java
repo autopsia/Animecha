@@ -1,6 +1,7 @@
 package com.sectordefectuoso.animecha;
 
-public class Anime {
+public class Anime{
+    private String Id;
     private String Title;
     private String Description;
     private String Genre;
@@ -12,6 +13,18 @@ public class Anime {
 
     public Anime(){
 
+    }
+
+    public Anime(String id, String title, String description, String genre, Integer episodes, Float episodeDuration, String studio, String poster, Integer year) {
+        Id = id;
+        Title = title;
+        Description = description;
+        Genre = genre;
+        Episodes = episodes;
+        EpisodeDuration = episodeDuration;
+        Studio = studio;
+        Poster = poster;
+        Year = year;
     }
 
     public String getTitle() {
@@ -78,14 +91,11 @@ public class Anime {
         Year = year;
     }
 
-    public Anime(String title, String description, String genre, Integer episodes, Float episodeDuration, String studio, String poster, Integer year) {
-        Title = title;
-        Description = description;
-        Genre = genre;
-        Episodes = episodes;
-        EpisodeDuration = episodeDuration;
-        Studio = studio;
-        Poster = poster;
-        Year = year;
-    }
+    public String getId() {
+            return Id;
+        }
+
+    public void setId(String id) {
+            Id = id;
+        }
 }
