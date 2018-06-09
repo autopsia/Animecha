@@ -5,17 +5,17 @@ public class Anime{
     private String Title;
     private String Description;
     private String Genre;
-    private Integer Episodes;
-    private Float EpisodeDuration;
+    private String Episodes;
+    private String EpisodeDuration;
     private String Studio;
     private String Poster;
-    private Integer Year;
+    private String Year;
 
     public Anime(){
 
     }
 
-    public Anime(String id, String title, String description, String genre, Integer episodes, Float episodeDuration, String studio, String poster, Integer year) {
+    public Anime(String id, String title, String description, String genre, String episodes, String episodeDuration, String studio, String poster, String year) {
         Id = id;
         Title = title;
         Description = description;
@@ -51,19 +51,19 @@ public class Anime{
         Genre = genre;
     }
 
-    public Integer getEpisodes() {
+    public String getEpisodes() {
         return Episodes;
     }
 
-    public void setEpisodes(Integer episodes) {
+    public void setEpisodes(String episodes) {
         Episodes = episodes;
     }
 
-    public Float getEpisodeDuration() {
+    public String getEpisodeDuration() {
         return EpisodeDuration;
     }
 
-    public void setEpisodeDuration(Float episodeDuration) {
+    public void setEpisodeDuration(String episodeDuration) {
         EpisodeDuration = episodeDuration;
     }
 
@@ -83,19 +83,19 @@ public class Anime{
         Poster = poster;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return Year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         Year = year;
     }
 
     public String getId() {
-            return Id;
-        }
+        return Id;
+    }
 
     public void setId(String id) {
-            Id = id;
-        }
+        Id = id;
+    }
 }

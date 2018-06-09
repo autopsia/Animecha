@@ -68,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     anime.setYear(animeSnapshot.getValue(Anime.class).getYear());
                     animes.add(anime);
                 }
-                ArrayList<Anime> animeKK = animes;
-                animeKK.remove(0);
-                AnimeList animeAdapter = new AnimeList(MainActivity.this, animeKK);
+                AnimeList animeAdapter = new AnimeList(MainActivity.this, animes);
                 mainGrid.setAdapter(animeAdapter);
             }
 
