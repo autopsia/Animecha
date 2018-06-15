@@ -49,7 +49,7 @@ public class AnimeList extends ArrayAdapter{
         btnDelete = convertView.findViewById(R.id.btnDeleteAnime);
 
         Anime anime = animes.get(position);
-        txtTitleList.setText(anime.getTitle()+"");
+        txtTitleList.setText(anime.getTitle());
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

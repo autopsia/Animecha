@@ -15,8 +15,9 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnEditAnime"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +33,7 @@
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteAnime"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.944" />
@@ -42,7 +43,7 @@
         android:layout_width="58dp"
         android:layout_height="31dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="56dp"
         android:layout_marginTop="16dp"
         android:text="Borrar"
         android:textSize="8sp"
