@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.sectordefectuoso.animecha.Anime;
@@ -19,6 +20,9 @@ import com.sectordefectuoso.animecha.R;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sectordefectuoso.animecha.MainActivity.database;
+import static com.sectordefectuoso.animecha.MainActivity.ref;
 
 public class AnimeList extends ArrayAdapter{
 
@@ -35,7 +39,7 @@ public class AnimeList extends ArrayAdapter{
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.anime_adapter_element, null);
         final TextView txtTitleList;
         Button btnEdit,btnDelete;
@@ -47,7 +51,15 @@ public class AnimeList extends ArrayAdapter{
         Anime anime = animes.get(position);
         txtTitleList.setText(anime.getTitle()+"");
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String keyref = animes.get(position).getId();
+                database.child("Anime").child(keyref).removeValue();
+                Toast.makeText(context, "Anime "+ animes.get(position).getTitle()+" Eliminado", Toast.LENGTH_SHORT).show();
 
+            }
+        });
         return convertView;
     }
 }

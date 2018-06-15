@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +27,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<Anime> animes;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference ref = database.child("Anime");
+    static DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    static DatabaseReference ref = database.child("Anime");
     GridView mainGrid;
 
     @Override
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 animes.clear();
                 for (DataSnapshot animeSnapshot : dataSnapshot.getChildren()) {
                     Anime anime = new Anime();
-                    anime.setId(animeSnapshot.getValue(Anime.class).getId());
+                    anime.setId(animeSnapshot.getKey());
                     anime.setTitle(animeSnapshot.getValue(Anime.class).getTitle());
                     anime.setDescription(animeSnapshot.getValue(Anime.class).getDescription());
                     anime.setGenre(animeSnapshot.getValue(Anime.class).getGenre());
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 AnimeList animeAdapter = new AnimeList(MainActivity.this, animes);
                 mainGrid.setAdapter(animeAdapter);
+                //Toast.makeText(MainActivity.this, animes.get(0).getId() +"", Toast.LENGTH_SHORT).show();
             }
 
             @Override
