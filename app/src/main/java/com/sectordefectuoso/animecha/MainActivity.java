@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Anime> animes;
     static DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     static DatabaseReference ref = database.child("Anime");
-    GridView mainGrid;
+    static GridView mainGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,18 @@ public class MainActivity extends AppCompatActivity {
                 temp.remove(0);
                 AnimeList animeAdapter = new AnimeList(MainActivity.this, animes);
                 mainGrid.setAdapter(animeAdapter);
-                //Toast.makeText(MainActivity.this, animes.get(0).getId() +"", Toast.LENGTH_SHORT).show();
+                //da funcionalidad para al darle clic cambiar de actividad
+                mainGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        String keyref = animes.get(i).getId();
+                        database.child("Anime").child(keyref).getKey();
+                        Intent j = new Intent(MainActivity.this, AnimeActivity.class);
+                        j.putExtra("keyref", keyref);
+                        startActivity(j);
+                        //Toast.makeText(MainActivity.this, i+""+keyref, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -82,10 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 
 
     public void AddAnime(){

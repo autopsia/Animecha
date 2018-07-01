@@ -38,6 +38,7 @@ public class AddAnimeActivity extends AppCompatActivity {
         //evitar error nullpointerexemption checkeando si los extras son nulos
         if(getIntent() != null && getIntent().getExtras() != null)
             keyref = getIntent().getExtras().getString("keyref");
+
         txtTitle = findViewById(R.id.txtTitle);
         txtDescription = findViewById(R.id.txtDescription);
         txtGenre = findViewById(R.id.txtGenre);
@@ -82,6 +83,9 @@ public class AddAnimeActivity extends AppCompatActivity {
         } else {
 
         }
+        if (keyref != null) {
+            btnAddAnime.setText("Actualizar Anime");
+        }
         btnAddAnime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +125,6 @@ public class AddAnimeActivity extends AppCompatActivity {
                     }else {
                         Id = ref.push().getKey();
                     }
-                    Anime animes = new Anime();
                     ref.child(Id).child("Title").setValue(Title);
                     ref.child(Id).child("Description").setValue(Description);
                     ref.child(Id).child("Genre").setValue(Genre);
@@ -130,8 +133,12 @@ public class AddAnimeActivity extends AppCompatActivity {
                     ref.child(Id).child("Studio").setValue(Studio);
                     ref.child(Id).child("Poster").setValue(Poster);
                     ref.child(Id).child("Year").setValue(Year);
-
-                    Toast.makeText(AddAnimeActivity.this, ref+"Datos Agregados", Toast.LENGTH_SHORT).show();
+                    if (keyref != null) {
+                        btnAddAnime.setText("Actualizar Anime");
+                        Toast.makeText(AddAnimeActivity.this, Title+" Datos Actualizados", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(AddAnimeActivity.this, Title+" Datos Agregados", Toast.LENGTH_SHORT).show();
+                    }
 
                     onBackPressed();
                 }

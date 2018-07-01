@@ -1,13 +1,17 @@
 package com.sectordefectuoso.animecha;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sectordefectuoso.animecha.MainActivity.database;
+import static com.sectordefectuoso.animecha.MainActivity.mainGrid;
 import static com.sectordefectuoso.animecha.MainActivity.ref;
 
 public class AnimeList extends ArrayAdapter{
@@ -66,11 +71,35 @@ public class AnimeList extends ArrayAdapter{
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String keyref = animes.get(position).getId();
-                database.child("Anime").child(keyref).removeValue();
-                Toast.makeText(context, "Anime "+ animes.get(position).getTitle()+keyref+" Eliminado", Toast.LENGTH_SHORT).show();
 
-            }
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(context);
+                    }
+                    builder.setTitle("Borrar Anime")
+                            .setMessage("¿Estas seguro de BORRAR este anime?\nEsta operacion es permanente.")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String keyref = animes.get(position).getId();
+                                    database.child("Anime").child(keyref).removeValue();
+                                    Toast.makeText(context, "Anime "+ animes.get(position).getTitle()+keyref+" Eliminado", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+
+                }
+
+
+
         });
         return convertView;
     }
