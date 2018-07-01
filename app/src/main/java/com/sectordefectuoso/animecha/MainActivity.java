@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                     anime.setYear(animeSnapshot.getValue(Anime.class).getYear());
                     animes.add(anime);
                 }
+                ArrayList<Anime> temp = animes;
+                temp.remove(0);
                 AnimeList animeAdapter = new AnimeList(MainActivity.this, animes);
                 mainGrid.setAdapter(animeAdapter);
                 //Toast.makeText(MainActivity.this, animes.get(0).getId() +"", Toast.LENGTH_SHORT).show();
