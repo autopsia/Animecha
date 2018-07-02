@@ -57,7 +57,6 @@ public class AnimeList extends ArrayAdapter{
         final TextView txtTitleList;
         Button btnEdit,btnDelete;
         ImageView imgPoster;
-
         txtTitleList = convertView.findViewById(R.id.txtTitleList);
         btnEdit = convertView.findViewById(R.id.btnEditAnime);
         btnDelete = convertView.findViewById(R.id.btnDeleteAnime);
