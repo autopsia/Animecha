@@ -175,7 +175,7 @@ public class AddAnimeActivity extends AppCompatActivity {
                         Toast.makeText(AddAnimeActivity.this, Title+" Datos Agregados", Toast.LENGTH_SHORT).show();
                     }
 
-                    //sube imagenes usando el nombre de
+                    //sube imagenes usando el nombre de id
                         if (filePath != null) {
                             pd.show();
 

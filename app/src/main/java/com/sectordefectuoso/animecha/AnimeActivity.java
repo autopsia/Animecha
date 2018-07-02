@@ -1,9 +1,13 @@
 package com.sectordefectuoso.animecha;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +18,7 @@ public class AnimeActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref = database.child("Anime");
     TextView txtATitle, txtADescription, txtAGenre, txtAEpisodes, txtAYear, txtAStudio;
+    ImageView imgAPoster;
     String keyref;
 
 
@@ -28,11 +33,13 @@ public class AnimeActivity extends AppCompatActivity {
         txtAEpisodes = findViewById(R.id.txtAEpisodes);
         txtAYear = findViewById(R.id.txtAYear);
         txtAStudio = findViewById(R.id.txtAStudio);
+        imgAPoster = findViewById(R.id.imgAPoster);
 
         //evitar error nullpointerexemption checkeando si los extras son nulos
         if(getIntent() != null && getIntent().getExtras() != null)
             keyref = getIntent().getExtras().getString("keyref");
         if (keyref != null) {
+
             ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -46,6 +53,7 @@ public class AnimeActivity extends AppCompatActivity {
                             txtAGenre.setText(anime.getGenre());
                             txtAStudio.setText(anime.getStudio());
                             txtAYear.setText(anime.getYear());
+                            Glide.with(AnimeActivity.this).load(anime.getPoster()).into(imgAPoster);
                             //txtPoster.setText(anime.getPoster());
 
                         }
