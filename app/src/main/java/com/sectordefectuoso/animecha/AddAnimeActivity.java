@@ -1,6 +1,11 @@
 package com.sectordefectuoso.animecha;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -25,10 +37,16 @@ import static com.sectordefectuoso.animecha.MainActivity.database;
 
 public class AddAnimeActivity extends AppCompatActivity {
     EditText txtTitle, txtDescription, txtGenre, txtEpisodes, txtEpisodeDuration, txtStudio, txtPoster, txtYear;
-    Button btnAddAnime;
+    Button btnAddAnime,btnAddImg,txtUploadImg;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Anime");
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://animecha-f6b0c.appspot.com/posters");
     String keyref;
+    ImageView imgView;
+    int PICK_IMAGE_REQUEST = 111;
+    Uri filePath;
+    ProgressDialog pd;
 
 
     @Override
@@ -36,7 +54,7 @@ public class AddAnimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_anime);
         //evitar error nullpointerexemption checkeando si los extras son nulos
-        if(getIntent() != null && getIntent().getExtras() != null)
+        if (getIntent() != null && getIntent().getExtras() != null)
             keyref = getIntent().getExtras().getString("keyref");
 
         txtTitle = findViewById(R.id.txtTitle);
@@ -48,6 +66,24 @@ public class AddAnimeActivity extends AppCompatActivity {
         txtPoster = findViewById(R.id.txtPoster);
         txtYear = findViewById(R.id.txtYear);
         btnAddAnime = findViewById(R.id.btnAddAnime);
+        btnAddImg = findViewById(R.id.btnAddImg);
+        txtUploadImg = findViewById(R.id.txtUploadImg);
+
+        imgView = findViewById(R.id.imgView);
+        pd = new ProgressDialog(this);
+        pd.setMessage("Uploading....");
+
+
+        btnAddImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+            }
+        });
+
 
 
         if (keyref != null) {
@@ -119,7 +155,7 @@ public class AddAnimeActivity extends AppCompatActivity {
                 }else if (TextUtils.isEmpty(Year)){
                     Toast.makeText(AddAnimeActivity.this, "Ingresa el Ano de Estreno", Toast.LENGTH_SHORT).show();
                 }else {
-                    String Id;
+                    final String Id;
                     if (keyref != null) {
                         Id = keyref;
                     }else {
@@ -131,7 +167,6 @@ public class AddAnimeActivity extends AppCompatActivity {
                     ref.child(Id).child("Episodes").setValue(Episodes);
                     ref.child(Id).child("EpisodeDuration").setValue(EpisodeDuration);
                     ref.child(Id).child("Studio").setValue(Studio);
-                    ref.child(Id).child("Poster").setValue(Poster);
                     ref.child(Id).child("Year").setValue(Year);
                     if (keyref != null) {
                         btnAddAnime.setText("Actualizar Anime");
@@ -139,6 +174,35 @@ public class AddAnimeActivity extends AppCompatActivity {
                     }else {
                         Toast.makeText(AddAnimeActivity.this, Title+" Datos Agregados", Toast.LENGTH_SHORT).show();
                     }
+
+                    //sube imagenes usando el nombre de
+                        if (filePath != null) {
+                            pd.show();
+
+                            StorageReference childRef = storageRef.child(Id+".jpg");
+
+                            //uploading the image
+                            final UploadTask uploadTask = childRef.putFile(filePath);
+
+                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    pd.dismiss();
+                                    Uri posterUri = taskSnapshot.getDownloadUrl();
+                                    String posterURL = posterUri.toString();
+                                    ref.child(Id).child("Poster").setValue(posterURL);
+                                    Toast.makeText(AddAnimeActivity.this, posterURL+"Upload successful", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    pd.dismiss();
+                                    Toast.makeText(AddAnimeActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(AddAnimeActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                        }
 
                     onBackPressed();
                 }
@@ -148,5 +212,23 @@ public class AddAnimeActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+
+            try {
+                //getting image from gallery
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                //Setting image to ImageView
+                imgView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

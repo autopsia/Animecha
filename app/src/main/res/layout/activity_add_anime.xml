@@ -72,6 +72,24 @@
         android:inputType="textPersonName" />
 
     <Button
+        android:id="@+id/btnAddImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Elige una caratula" />
+
+    <Button
+        android:id="@+id/txtUploadImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+
+    <Button
         android:id="@+id/btnAddAnime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

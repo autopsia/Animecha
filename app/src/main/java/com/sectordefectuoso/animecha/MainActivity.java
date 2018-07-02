@@ -3,16 +3,10 @@ package com.sectordefectuoso.animecha;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -22,14 +16,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     public static ArrayList<Anime> animes;
     static DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     static DatabaseReference ref = database.child("Anime");
+
     static GridView mainGrid;
 
     @Override
@@ -47,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mainGrid = findViewById(R.id.mainGrid);
+
     }
 
     @Override

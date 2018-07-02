@@ -5,7 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,13 +19,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.sectordefectuoso.animecha.Anime;
 import com.sectordefectuoso.animecha.R;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +56,20 @@ public class AnimeList extends ArrayAdapter{
         convertView = LayoutInflater.from(context).inflate(R.layout.anime_adapter_element, null);
         final TextView txtTitleList;
         Button btnEdit,btnDelete;
+        ImageView imgPoster;
 
         txtTitleList = convertView.findViewById(R.id.txtTitleList);
         btnEdit = convertView.findViewById(R.id.btnEditAnime);
         btnDelete = convertView.findViewById(R.id.btnDeleteAnime);
+        imgPoster = convertView.findViewById(R.id.imgPoster);
 
         Anime anime = animes.get(position);
         txtTitleList.setText(anime.getTitle());
+
+        Glide.with(context).load(anime.getPoster()).into(imgPoster);
+
+        //File imgUri = new File(anime.getPoster());
+        //imgPoster.setImageURI(Uri.fromFile(imgUri));
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +85,7 @@ public class AnimeList extends ArrayAdapter{
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //cuadro de confirmacion para borrar
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
