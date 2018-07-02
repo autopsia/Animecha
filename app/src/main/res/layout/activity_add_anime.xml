@@ -69,19 +69,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="enlace a poster"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnAddImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Elige una caratula" />
-
-    <Button
-        android:id="@+id/txtUploadImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
     <ImageView
         android:id="@+id/imgView"

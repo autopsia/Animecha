@@ -53,9 +53,10 @@ public class AnimeActivity extends AppCompatActivity {
                             txtAGenre.setText(anime.getGenre());
                             txtAStudio.setText(anime.getStudio());
                             txtAYear.setText(anime.getYear());
-                            Glide.with(AnimeActivity.this).load(anime.getPoster()).into(imgAPoster);
-                            //txtPoster.setText(anime.getPoster());
-
+                            if (anime != null){
+                                Glide.with(getApplicationContext()).load(anime.getPoster()).into(imgAPoster);
+                                //txtPoster.setText(anime.getPoster());
+                            }
                         }
 
                     }
@@ -65,7 +66,6 @@ public class AnimeActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-
             });
 
 

@@ -31,13 +31,14 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 import static com.sectordefectuoso.animecha.MainActivity.database;
 
 public class AddAnimeActivity extends AppCompatActivity {
     EditText txtTitle, txtDescription, txtGenre, txtEpisodes, txtEpisodeDuration, txtStudio, txtPoster, txtYear;
-    Button btnAddAnime,btnAddImg,txtUploadImg;
+    Button btnAddAnime,btnAddImg;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Anime");
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -67,7 +68,6 @@ public class AddAnimeActivity extends AppCompatActivity {
         txtYear = findViewById(R.id.txtYear);
         btnAddAnime = findViewById(R.id.btnAddAnime);
         btnAddImg = findViewById(R.id.btnAddImg);
-        txtUploadImg = findViewById(R.id.txtUploadImg);
 
         imgView = findViewById(R.id.imgView);
         pd = new ProgressDialog(this);
@@ -135,7 +135,6 @@ public class AddAnimeActivity extends AppCompatActivity {
                 String Episodes = txtEpisodes.getText().toString();
                 String EpisodeDuration = txtEpisodeDuration.getText().toString();
                 String Studio = txtStudio.getText().toString();
-                String Poster = txtPoster.getText().toString();
                 String Year = txtYear.getText().toString();
                 //Revisar que se hayan ingresado todos los datos
                 if (TextUtils.isEmpty(Title)){
@@ -150,8 +149,6 @@ public class AddAnimeActivity extends AppCompatActivity {
                     Toast.makeText(AddAnimeActivity.this, "Ingresa la duracion aproximada de cada episodio", Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(Studio)){
                     Toast.makeText(AddAnimeActivity.this, "Ingresa el Estudio", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(Poster)){
-                    Toast.makeText(AddAnimeActivity.this, "Ingresa una direccion de la imagen del poster", Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(Year)){
                     Toast.makeText(AddAnimeActivity.this, "Ingresa el Ano de Estreno", Toast.LENGTH_SHORT).show();
                 }else {
@@ -191,17 +188,30 @@ public class AddAnimeActivity extends AppCompatActivity {
                                     Uri posterUri = taskSnapshot.getDownloadUrl();
                                     String posterURL = posterUri.toString();
                                     ref.child(Id).child("Poster").setValue(posterURL);
-                                    Toast.makeText(AddAnimeActivity.this, posterURL+"Upload successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddAnimeActivity.this, posterURL+"Poster subido", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     pd.dismiss();
-                                    Toast.makeText(AddAnimeActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddAnimeActivity.this, "Fallo la subida -> " + e, Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
-                            Toast.makeText(AddAnimeActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                        ref.child(Id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.hasChild("Poster")){
+                                    ref.child(Id).child("Poster").setValue("https://firebasestorage.googleapis.com/v0/b/animecha-f6b0c.appspot.com/o/posters%2Fnoposter.jpg?alt=media&token=4c178968-bb1b-4a8d-8113-12fb43a1c57b");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                            Toast.makeText(AddAnimeActivity.this, "Ningun poster agregado", Toast.LENGTH_SHORT).show();
                         }
 
                     onBackPressed();

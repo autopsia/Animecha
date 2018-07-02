@@ -98,7 +98,7 @@ public class AnimeList extends ArrayAdapter{
                                 public void onClick(DialogInterface dialog, int which) {
                                     String keyref = animes.get(position).getId();
                                     database.child("Anime").child(keyref).removeValue();
-                                    Toast.makeText(context, "Anime "+ animes.get(position).getTitle()+keyref+" Eliminado", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Anime "+ animes.get(position).getTitle()+" Eliminado", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
