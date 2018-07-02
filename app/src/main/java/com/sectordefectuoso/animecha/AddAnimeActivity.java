@@ -188,7 +188,7 @@ public class AddAnimeActivity extends AppCompatActivity {
                                     Uri posterUri = taskSnapshot.getDownloadUrl();
                                     String posterURL = posterUri.toString();
                                     ref.child(Id).child("Poster").setValue(posterURL);
-                                    Toast.makeText(AddAnimeActivity.this, posterURL+"Poster subido", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddAnimeActivity.this, "Poster subido", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
