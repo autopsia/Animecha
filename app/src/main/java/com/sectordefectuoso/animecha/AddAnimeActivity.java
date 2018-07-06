@@ -198,19 +198,19 @@ public class AddAnimeActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                        ref.child(Id).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (!dataSnapshot.hasChild("Poster")){
-                                    ref.child(Id).child("Poster").setValue("https://firebasestorage.googleapis.com/v0/b/animecha-f6b0c.appspot.com/o/posters%2Fnoposter.jpg?alt=media&token=4c178968-bb1b-4a8d-8113-12fb43a1c57b");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                        //ref.child(Id).addListenerForSingleValueEvent(new ValueEventListener() {
+                        //    @Override
+                        //    public void onDataChange(DataSnapshot dataSnapshot) {
+                         //       if (!dataSnapshot.hasChild("Poster")){
+                        //            ref.child(Id).child("Poster").setValue("https://firebasestorage.googleapis.com/v0/b/animecha-f6b0c.appspot.com/o/posters%2Fnoposter.jpg?alt=media&token=4c178968-bb1b-4a8d-8113-12fb43a1c57b");
+                        //        }
+                        //    }
+//
+                        //    @Override
+                        //    public void onCancelled(DatabaseError databaseError) {
+//
+                        //    }
+                       // });
                             Toast.makeText(AddAnimeActivity.this, "Ningun poster agregado", Toast.LENGTH_SHORT).show();
                         }
 
