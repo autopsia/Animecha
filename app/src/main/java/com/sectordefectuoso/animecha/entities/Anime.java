@@ -1,4 +1,6 @@
-package com.sectordefectuoso.animecha;
+package com.sectordefectuoso.animecha.entities;
+
+import java.util.ArrayList;
 
 public class Anime{
     private String Id;

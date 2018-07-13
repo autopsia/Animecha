@@ -1,7 +1,5 @@
 package com.sectordefectuoso.animecha;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -13,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sectordefectuoso.animecha.entities.Anime;
 
 public class AnimeActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();

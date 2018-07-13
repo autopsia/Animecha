@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AddAnimeActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <EditText
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="Titulo"
         android:inputType="textPersonName" />
@@ -20,49 +25,36 @@
         android:id="@+id/txtDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtTitle"
         android:ems="10"
         android:hint="Sinopsis de la serie"
         android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/txtGenre"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtStudio"
-        android:ems="10"
-        android:hint="Genero"
-        android:inputType="textPersonName" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/txtEpisodes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtDescription"
-        android:ems="10"
-        android:hint="Numero de Episodios"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/txtEpisodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Numero de Episodios"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/txtEpisodeDuration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtEpisodes"
-        android:ems="10"
-        android:hint="Duracion de cada episodio en minutos"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/txtEpisodeDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Duracion por episodio"
+            android:inputType="number" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/txtStudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="219dp"
         android:ems="10"
         android:hint="Estudio"
         android:inputType="textPersonName" />
@@ -71,12 +63,21 @@
         android:id="@+id/txtYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="181dp"
         android:ems="10"
         android:hint="Ano de publicacion"
         android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnAddGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Generos" />
+
+    <TextView
+        android:id="@+id/txtGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
     <EditText
         android:id="@+id/txtPoster"
@@ -87,28 +88,28 @@
         android:inputType="textPersonName"
         android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btnAddAnime"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/txtGenre"
-        android:layout_marginEnd="22dp"
-        android:text="Anadir Anime" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnAddImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtGenre"
-        android:text="Elige una caratula" />
+        <Button
+            android:id="@+id/btnAddImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elige una caratula" />
+
+        <Button
+            android:id="@+id/btnAddAnime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Anadir Anime" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imgView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnAddAnime" />
-
-</RelativeLayout>
+        android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

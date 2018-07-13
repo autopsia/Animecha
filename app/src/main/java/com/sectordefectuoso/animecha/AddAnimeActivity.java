@@ -6,39 +6,36 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.sectordefectuoso.animecha.entities.Anime;
+import com.sectordefectuoso.animecha.entities.Genre;
 
-import java.time.Year;
 import java.util.ArrayList;
 
-import static com.sectordefectuoso.animecha.MainActivity.database;
-
 public class AddAnimeActivity extends AppCompatActivity {
-    EditText txtTitle, txtDescription, txtGenre, txtEpisodes, txtEpisodeDuration, txtStudio, txtPoster, txtYear;
-    Button btnAddAnime,btnAddImg;
+    static ArrayList<String> selectedGenre;
+    static TextView txtGenre;
+    EditText txtTitle, txtDescription, txtEpisodes, txtEpisodeDuration, txtStudio, txtPoster, txtYear;
+    Button btnAddAnime,btnAddImg, btnAddGenre;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Anime");
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -58,6 +55,7 @@ public class AddAnimeActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getExtras() != null)
             keyref = getIntent().getExtras().getString("keyref");
 
+        selectedGenre = new ArrayList<>();
         txtTitle = findViewById(R.id.txtTitle);
         txtDescription = findViewById(R.id.txtDescription);
         txtGenre = findViewById(R.id.txtGenre);
@@ -68,6 +66,8 @@ public class AddAnimeActivity extends AppCompatActivity {
         txtYear = findViewById(R.id.txtYear);
         btnAddAnime = findViewById(R.id.btnAddAnime);
         btnAddImg = findViewById(R.id.btnAddImg);
+        btnAddGenre = findViewById(R.id.btnAddGenre);
+        txtGenre.setText("");
 
         imgView = findViewById(R.id.imgView);
         pd = new ProgressDialog(this);
@@ -84,7 +84,13 @@ public class AddAnimeActivity extends AppCompatActivity {
             }
         });
 
-
+        btnAddGenre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogGenre dialogGenre = new DialogGenre();
+                dialogGenre.show(getSupportFragmentManager(),"ActivityDialog");
+            }
+        });
 
         if (keyref != null) {
             ValueEventListener valueEventListener = ref.addValueEventListener(new ValueEventListener() {
@@ -121,6 +127,7 @@ public class AddAnimeActivity extends AppCompatActivity {
         }
         if (keyref != null) {
             btnAddAnime.setText("Actualizar Anime");
+            btnAddGenre.setText("Actualizar generos");
         }
         btnAddAnime.setOnClickListener(new View.OnClickListener() {
             @Override
