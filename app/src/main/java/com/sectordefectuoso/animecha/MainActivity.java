@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity{
                                 else{
                                     String tmpGenre = animeSnapshot.getValue(Anime.class).getGenre() == null ? "" : animeSnapshot.getValue(Anime.class).getGenre();
                                     String listGenres[] = tmpGenre != null ? tmpGenre.split(",") : null;
-                                    tmpSelectedAnime.clear();
                                     for(int i = 0; i < listGenres.length; i++){
                                         if(listGenres != null){
                                             if(CurrentGenre.equals(listGenres[i].trim())){
