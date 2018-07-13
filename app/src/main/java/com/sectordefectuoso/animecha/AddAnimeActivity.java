@@ -181,8 +181,7 @@ public class AddAnimeActivity extends AppCompatActivity {
 
                     //sube imagenes usando el nombre de id
                         if (filePath != null) {
-                            pd.show();
-
+                            //pd.show();
                             StorageReference childRef = storageRef.child(Id+".jpg");
 
                             //uploading the image
@@ -191,7 +190,7 @@ public class AddAnimeActivity extends AppCompatActivity {
                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    pd.dismiss();
+                                    //pd.dismiss();
                                     Uri posterUri = taskSnapshot.getDownloadUrl();
                                     String posterURL = posterUri.toString();
                                     ref.child(Id).child("Poster").setValue(posterURL);
@@ -200,7 +199,7 @@ public class AddAnimeActivity extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    pd.dismiss();
+                                    //pd.dismiss();
                                     Toast.makeText(AddAnimeActivity.this, "Fallo la subida -> " + e, Toast.LENGTH_SHORT).show();
                                 }
                             });

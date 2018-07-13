@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity{
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            tmpSelectedAnime.clear();
                             for (DataSnapshot animeSnapshot : dataSnapshot.getChildren()) {
                                 if(genre.getGenreId().equals("0")){
                                     Anime anime = new Anime();
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity{
                                 else{
                                     String tmpGenre = animeSnapshot.getValue(Anime.class).getGenre() == null ? "" : animeSnapshot.getValue(Anime.class).getGenre();
                                     String listGenres[] = tmpGenre != null ? tmpGenre.split(",") : null;
+                                    tmpSelectedAnime.clear();
                                     for(int i = 0; i < listGenres.length; i++){
                                         if(listGenres != null){
                                             if(CurrentGenre.equals(listGenres[i].trim())){

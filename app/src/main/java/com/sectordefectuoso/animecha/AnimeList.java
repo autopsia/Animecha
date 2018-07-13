@@ -53,9 +53,6 @@ public class AnimeList extends ArrayAdapter{
 
         Glide.with(context).load(anime.getPoster()).into(imgPoster);
 
-        //File imgUri = new File(anime.getPoster());
-        //imgPoster.setImageURI(Uri.fromFile(imgUri));
-
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
